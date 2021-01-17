@@ -1,5 +1,7 @@
 import './App.css';
 import React, {useState} from "react";
+import {Button, FormControl, InputLabel, Input} from '@material-ui/core';
+import Message from "./Message";
 
 //input field
 // send message button
@@ -13,22 +15,27 @@ function App() {
         // all the logic to send a message goes here
         event.preventDefault()
 
-        if(!!input){
-            setMessages([...messages, input])
-            setInput('')
-        }
+
+        setMessages([...messages, input])
+        setInput('')
 
     }
     return <div className="App">
         <h1>Hello world</h1>
         <form>
-            <input value={input} onChange={e => setInput(e.target.value)}/>
-            <button type='submit' onClick={sendMessage}> Send the message</button>
+            <FormControl>
+                <InputLabel htmlFor="my-input">Enter Message</InputLabel>
+                <Input aria-describedby="my-helper-text" value={input} onChange={e => setInput(e.target.value)}/>
+                <Button disabled={!input} variant="contained" color="primary" type='submit' onClick={sendMessage}>Send
+                    the message</Button>
+            </FormControl>
+
         </form>
+
 
         {
             messages.map(message => (
-                <p key={message}>{message}</p>
+                <Message message={message}/>
             ))
         }
     </div>;
