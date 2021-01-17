@@ -9,8 +9,11 @@ import Message from "./Message";
 function App() {
     const [input, setInput] = useState('')
     const [messages, setMessages] = useState(['hi', 'take dog out'])
-    console.log(input)
-    console.log(messages)
+    const [username, setUsername] = useState('')
+
+    // useState = variable in React
+    // useEffect = run code on a condition in React. During second render
+
     const sendMessage = (event) => {
         // all the logic to send a message goes here
         event.preventDefault()
