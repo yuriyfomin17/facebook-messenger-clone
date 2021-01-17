@@ -6,13 +6,32 @@ import React, {useState} from "react";
 // messages themselves
 function App() {
     const [input, setInput] = useState('')
-    return (
-        <div className="App">
-            <h1>Hello world</h1>
-            <input value={input} onChange={e=>setInput(e.target.value)}/>
-            <button> Send the message</button>
-        </div>
-    );
+    const [messages, setMessages] = useState(['hi', 'take dog out'])
+    console.log(input)
+    console.log(messages)
+    const sendMessage = (event) => {
+        // all the logic to send a message goes here
+        event.preventDefault()
+
+        if(!!input){
+            setMessages([...messages, input])
+            setInput('')
+        }
+
+    }
+    return <div className="App">
+        <h1>Hello world</h1>
+        <form>
+            <input value={input} onChange={e => setInput(e.target.value)}/>
+            <button type='submit' onClick={sendMessage}> Send the message</button>
+        </form>
+
+        {
+            messages.map(message => (
+                <p key={message}>{message}</p>
+            ))
+        }
+    </div>;
 }
 
 export default App;
