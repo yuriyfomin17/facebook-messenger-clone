@@ -3,6 +3,9 @@ import React, {useEffect, useState} from "react";
 import {Button, FormControl, InputLabel, Input} from '@material-ui/core';
 import Message from "./Message";
 import db from './Firebase'
+import firebase from "firebase";
+import FlipMove from "react-flip-move";
+import image from './facebook-image.png'
 
 
 //input field
@@ -22,9 +25,11 @@ function App() {
         // useEffect runs
         // However, db is also listener so it will run when snapshot of database
         // changes
-        db.collection('messages').onSnapshot(snapshot => {
-            setMessages(snapshot.docs.map(doc => doc.data()))
-        })
+        db.collection('messages')
+            .orderBy('timestamp', 'desc')
+            .onSnapshot(snapshot => {
+                setMessages(snapshot.docs.map(doc => ({id: doc.id, message: doc.data()})))
+            })
     }, [])
 
     useEffect(() => {
@@ -37,12 +42,18 @@ function App() {
     const sendMessage = (event) => {
         // all the logic to send a message goes here
         event.preventDefault()
-        setMessages([...messages, {username: username, text: input}])
+        db.collection('messages').add({
+            message: input,
+            username: username,
+            // user timestamp where the server is
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        })
         setInput('')
 
     }
 
     return <div className="App">
+        <img src={image} height={100} width={100} />
         <h1>Hello world</h1>
         <h1>{username}</h1>
         <form>
@@ -55,12 +66,14 @@ function App() {
 
         </form>
 
+        <FlipMove>
+            {
+                messages.map(({id, message}) => (
+                    <Message key={id} username={username} message={message}/>
+                ))
+            }
+        </FlipMove>
 
-        {
-            messages.map(message => (
-                <Message key={Math.random()} username={username} message={message}/>
-            ))
-        }
     </div>;
 }
 

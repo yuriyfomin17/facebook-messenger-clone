@@ -1,17 +1,17 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import {Card, CardContent, Typography} from '@material-ui/core';
 import './Message.css'
-
-function Message(props) {
-    const {message, username} = props
+// forwardRef is example of Higher order function. Example only rerender new messages
+// Like instagram. You don't want to rerender all messages
+const Message = forwardRef(({message, username}, ref) => {
     const isUser = username === message.username
     return (
-        <div className={`message ${isUser && 'message_user'}`}>
-            <Card className={isUser?'message_userCard':'message_guestCard'}>
+        <div ref={ref} className={`message ${isUser && 'message_user'}`}>
+            <Card className={isUser ? 'message_userCard' : 'message_guestCard'}>
                 <div>
                     <CardContent>
                         <Typography
-                            color="white"
+                            color="initial"
                             component="h5"
                             variant="h5"
                         >
@@ -24,6 +24,6 @@ function Message(props) {
 
 
     );
-}
+})
 
 export default Message;
