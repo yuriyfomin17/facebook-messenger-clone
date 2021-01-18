@@ -1,21 +1,31 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.app_form {
+    padding: 20px;
+    /*fix it to the screen regardless how you scroll*/
+    position: fixed;
+    bottom: 0;
+    /*this is more important*/
+    z-index: 1;
+    background-color: #e9e9eb;
+    width: 100%;
+    margin: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.app_formControl {
+    /*!important because material ui overwirtes rule*/
+    display: flex !important;
+    flex-direction: row !important;
 }
+.app_input{
+    flex: 0.9;
+}
+.app_iconButton{
+    flex:0;
+}
+
 
 

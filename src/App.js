@@ -6,7 +6,8 @@ import db from './Firebase'
 import firebase from "firebase";
 import FlipMove from "react-flip-move";
 import image from './facebook-image.png'
-
+import SendIcon from '@material-ui/icons/Send';
+import { IconButton } from '@material-ui/core';
 
 //input field
 // send message button
@@ -51,17 +52,16 @@ function App() {
         setInput('')
 
     }
-
     return <div className="App">
         <img src={image} height={100} width={100} />
         <h1>Hello world</h1>
         <h1>{username}</h1>
-        <form>
-            <FormControl>
-                <InputLabel htmlFor="my-input">Enter Message</InputLabel>
-                <Input aria-describedby="my-helper-text" value={input} onChange={e => setInput(e.target.value)}/>
-                <Button disabled={!input} variant="contained" color="primary" type='submit' onClick={sendMessage}>Send
-                    the message</Button>
+        <form className="app_form">
+            <FormControl className="app_formControl">
+                <Input className="app_input" placeholder='Enter message...' aria-describedby="my-helper-text" value={input} onChange={e => setInput(e.target.value)}/>
+                <IconButton className="app_iconButton" disabled={!input} variant="contained" color="primary" type='submit' onClick={sendMessage}>
+                    <SendIcon/>
+                </IconButton>
             </FormControl>
 
         </form>
